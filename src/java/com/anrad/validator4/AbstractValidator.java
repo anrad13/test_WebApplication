@@ -27,7 +27,7 @@ public abstract class AbstractValidator<T>
     private Instance<Rule<T>> rl;
     
     //private final Map<RuleGroup,Set<Rule<T>>> rm = new HashMap<>();
-    
+    // Ingect by producer
     @Inject @Default
     private Map<RuleGroup,Set<Rule<T>>> rm;
     
@@ -64,6 +64,7 @@ public abstract class AbstractValidator<T>
                     r.apply(t); 
                 } catch (Exception e) {
                     logging("Rule exception. Rule = " + r.toString() + "; msg = " +  e.getMessage());
+                    m.add(e.getMessage());
                 }
             }
             
