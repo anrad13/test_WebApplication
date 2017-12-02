@@ -1,4 +1,4 @@
-package com.anrad.validator4;
+package com.anrad.validator;
 
 import com.anrad.log.LogRecord;
 import javax.annotation.PostConstruct;

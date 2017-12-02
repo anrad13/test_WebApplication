@@ -1,5 +1,5 @@
 
-package com.anrad.validator4;
+package com.anrad.validator;
 
 import com.anrad.record.Record;
 import javax.ejb.Stateless;
