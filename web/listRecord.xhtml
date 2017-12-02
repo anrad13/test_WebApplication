@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Record List</title>
+    </h:head>
+    <h:body>
+        
+        <h1>Record List</h1>
+        <hr/>
+        
+        <h:form id="personForm">
+ 
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Name : "/>
+            <h:inputTextarea value="#{recordController.record.name}" 
+                             rows="1" required="true" requiredMessage="Name must has value" 
+                             validator="recordNameValidator"/>
+            <h:outputLabel value="Description : "/>
+            <h:inputTextarea value="#{recordController.record.description}" />
+        </h:panelGrid>
+            <br/>
+            <h:commandButton value="Create record" action="#{recordController.doCreate}">
+                <f:ajax execute="@form" render=":recordList :personForm :errors :eventList"/>
+            </h:commandButton>
+        </h:form>
+        <br/>
+        <h:dataTable id="recordList" value="#{recordController.doFindAll()}" var="pr" border="1">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="id"/>
+                </f:facet>
+                <h:link outcome="viewRecord.xhtml?id=#{pr.id}" value="#{pr.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{pr.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Description"/>
+                </f:facet>
+                <h:outputText value="#{pr.description =='' ? '{empty}' : pr.description}" />
+            </h:column>   
+        </h:dataTable>
+        
+        <hr/>
+        <h3>Events</h3>
+        <h:dataTable id="eventList" value="#{logController.doFindAll()}" var="log" border="1">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="id"/>
+                </f:facet>
+                <h:outputText value="#{log.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="id"/>
+                </f:facet>
+                <h:outputText value="#{log.t}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{log.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Description"/>
+                </f:facet>
+                <h:outputText value="#{log.msg}" />
+            </h:column>   
+        </h:dataTable>
+        
+        <hr/>
+        <h:outputText value="Изучаем Java EE 7. Record App" style="font-style:italic"/>
+        <h:messages id="errors" style="color:red"/>
+        <h:message for="recordList" style="color:blue"/>
+        
+    </h:body>
+</html>

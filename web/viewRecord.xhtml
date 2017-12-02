@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <f:metadata>
+        <f:viewParam name="id" value="#{recordController.record.id}"/>
+        <f:viewAction action="#{recordController.doFindById}"/>
+    </f:metadata>
+    
+    <head>
+        <title>View Record</title>
+    </head>
+    
+    <body>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="ID : "/>
+            <h:outputText value="#{recordController.record.id}"/>
+            <h:outputLabel value="Name : "/>
+            <h:outputText value="#{recordController.record.name}"/>
+            <h:outputLabel value="Description : "/>
+            <h:outputText value="#{recordController.record.description}"/>
+        </h:panelGrid>
+        
+        <hr/>
+        
+        <h:form>
+            <h:commandButton value="Delete" action="#{recordController.doDelete(recordController.record.id)}"/>
+        </h:form>
+    </body>
+</html>

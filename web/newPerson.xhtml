@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="personLayout.xhtml">
+    <ui:define name="title">Создать новую книгу</ui:define>
+    <ui:define name="content">
+        <h:messages id='errors' style="color:green"/>
+        <h:form id="personForm">
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Name : "/>
+                <h:inputText id="person_name" value="#{personController.p.name}" required="true"/>
+                <h:message for="person_name"/>
+                <h:outputLabel value="Description : "/>
+                <h:inputTextarea value="#{personController.p.description}" cols="16" rows="3"/>
+            </h:panelGrid>
+            <h:commandButton value="Create person" action="#{personController.doCreatePerson}">
+            <f:ajax execute="@form" render=":personlist :errors"/>
+            </h:commandButton>
+        </h:form>
+        <hr/>
+        <h1>Person list</h1>
+        <h:dataTable id="personlist" value="#{personController.findAll()}" var="pr" border="1">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Uuid" converter="uuidConverter"/>
+                </f:facet>
+                <h:link outcome="viewPerson.xhtml?id=#{pr.uuid}" value="#{pr.uuid}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{pr.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Description"/>
+                </f:facet>
+                <h:outputText value="#{pr.description}"/>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>
+</html>
