@@ -4,17 +4,10 @@ import com.anrad.log.LogRecord;
 import com.anrad.record.RecordDTO;
 import com.anrad.record.Record;
 import com.anrad.record.RecordStore;
-import com.anrad.validator.RecordAddValidatorRule;
-import com.anrad.validator.RecordValidatorHandler;
-import com.anrad.validator.ValidationRuleException;
-import com.anrad.validator.ValidatorGroup;
-import com.anrad.validator.ValidatorRule;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Default;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -53,47 +46,23 @@ public class RecordController {
     }
     
     @Inject
-    private Event<RecordDTO> recordAddedEvent;
-    
-    @Inject
     private Event<LogRecord> logger;
-    
-    @Inject
-    //private @Default ValidatorRule<Record> validator;
-    private RecordValidatorHandler validator;
     
     public String doCreate() {
         
-        //validate
-        logger.fire(new LogRecord(this.getClass().getSimpleName(),"Try to validate. Validator class = " + validator.getClass().getSimpleName()));
-        
-        //validator.validate(record, ValidatorGroup.DEFAULT);
-        /*try {
-            validator.apply(record);
-        } catch (ValidationRuleException ex) {
-            logger.fire(new LogRecord(this.getClass().getSimpleName(),"Validator exception. Error = " + ex.getMessage()));
-        }
-        */
-        
+        //#TODO validate
+               
         if (record.getName() != null && record.getName().length()>0) {
             
             recordStore.put(new Record(record.getName(),record.getDescription()));
-            
-            //recordAddedEvent.fire(record);
-            
             logger.fire(new LogRecord(this.getClass().getSimpleName(),"Record was added to record store"));
-            
-            //actionEvent.fire(new ActionEvent<>(record));
-            
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Record was created"));
             record = new RecordDTO();
         }
         else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Record can not be created. Name is empty"));
         } 
-                
         //p = new Person();
-        
         return null;
     }
     
