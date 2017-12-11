@@ -5,13 +5,9 @@
  */
 package com.anrad.log;
 
-import com.anrad.record.RecordDTO;
-import com.anrad.record.Record;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -45,6 +41,11 @@ public class LogController {
         //facesContext.addMessage("recordList", new FacesMessage("Record count = " + recordList.size()));
         
         return l;
+    }
+    
+    public void doDeleteAll() {
+        logStore.del();
+        logStore.put(new LogRecord(this.getClass().getSimpleName(), "Log store have been cleared"));
     }
     
 }

@@ -2,16 +2,13 @@ package com.anrad.record;
 
 import com.anrad.dbo.AbstractStoreService;
 import com.anrad.log.LogRecord;
-import com.anrad.validator.RecordValidator;
 import com.anrad.validator.RuleGroup;
 import com.anrad.validator.Validator;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
 @Startup
@@ -55,5 +52,9 @@ public class RecordStore extends AbstractStoreService<Record, String> {
     protected void logging(String msg) {
         logger.fire(new LogRecord(this.getClass().getSimpleName(), msg));
     }
+    
+    //@Inject
+    //LogHandlerImpl l;
+    //LogHandler l;
 
 }

@@ -52,6 +52,12 @@
         
         <hr/>
         <h3>Events</h3>
+        <h:form id="eventClearForm">
+            <h:commandButton value="Clear event" action="#{logController.doDeleteAll()}">
+                <f:ajax execute="@form" render=":errors :eventList"/>
+            </h:commandButton>
+        </h:form>       
+        <hr/>
         <h:dataTable id="eventList" value="#{logController.doFindAll()}" var="log" border="1">
             <h:column>
                 <f:facet name="header">

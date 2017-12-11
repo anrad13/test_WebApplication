@@ -1,7 +1,6 @@
 package com.anrad.log;
 
 import com.anrad.dbo.AbstractStoreService;
-import com.anrad.record.ActionEvent;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
