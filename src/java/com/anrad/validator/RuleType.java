@@ -5,8 +5,11 @@
  */
 package com.anrad.validator;
 
-
-public interface Rule<T> {
-    RuleResult apply(T t);
-    public RuleError getError();
+/**
+ *
+ * @author Radoselskiy
+ */
+public enum RuleType {
+    ERROR,
+    WARNING;
 }

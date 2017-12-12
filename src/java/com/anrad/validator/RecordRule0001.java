@@ -7,11 +7,18 @@ package com.anrad.validator;
 
 import com.anrad.record.Record;
 import javax.ejb.Stateless;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 
-@Stateless
+//@Stateless
+//@RequestScoped
+	
+@Dependent
+
 @RuleAnnotation (
-        errMsg = "RecordRule0001 have not realized yet",
-        group = RuleGroup.DEFAULT
+        //errMsg = "RecordRule0001 have not realized yet",
+        //group = RuleGroup.DEFAULT
+        error = RuleError.RECORD_ERR_001
 )
 
 public class RecordRule0001 
@@ -21,8 +28,7 @@ public class RecordRule0001
 {
 
     @Override
-    public void apply(Record t) throws Exception {
-        this.logging("RecordRule0001 not supported yet. Record =  " + t.toString());
+    protected void execute(Record t) throws RuleException {
         throw new RuleException("Rule is not supported yet");
     }
     

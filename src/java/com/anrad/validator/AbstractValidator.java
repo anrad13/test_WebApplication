@@ -54,28 +54,20 @@ public abstract class AbstractValidator<T>
     */
     
     @Override
-    public List<String> validate(T t, RuleGroup g) {
-        List<String> m = new ArrayList<>();
+    public List<RuleResult> validate(T t, RuleGroup g) {
+        List<RuleResult> m = new ArrayList<>();
         logging("Try to validate object = " + t.getClass().getName());
         if (rm.containsKey(g)) {
             logging("Applying rule for group = " + g);
             for(Rule<T> r : rm.get(g)) {
-                try { 
-                    r.apply(t); 
-                } catch (Exception e) {
-                    logging("Rule exception. Rule = " + r.toString() + "; msg = " +  e.getMessage());
-                    m.add(e.getMessage());
-                }
-            }
-            
-            //rm.get(g).forEach((Rule<T> r) -> {
-                //try {
-                //    r.apply(t);
-                //} catch (RuleException ex) {
-                    //logging("Rule exception. Rule = " + r.toString() + "; msg = " +  ex.getMessage());
+                //try { 
+                    RuleResult res = r.apply(t); 
+                    m.add(res);
+                //} catch (Exception e) {
+                //    logging("Rule exception. Rule = " + r.toString() + "; msg = " +  e.getMessage());
+                //    m.add(e.getMessage());
                 //}
-                //logging("Apply rule success: " + r.toString());
-            //});
+            }
         } else {
             logging("No rule was founded for group = " + g);
         }

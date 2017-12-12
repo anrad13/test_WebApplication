@@ -5,6 +5,6 @@ import java.util.List;
 
 
 public interface Validator<T> {
-    List<String> validate(T t, RuleGroup g);
+    List<RuleResult> validate(T t, RuleGroup g);
     
 }

@@ -10,8 +10,9 @@ import javax.ejb.Stateless;
 
 @Stateless
 @RuleAnnotation (
-        errMsg = "RecordRule0001 have not realized yet",
-        group = RuleGroup.DEFAULT
+        //errMsg = "RecordRule0001 have not realized yet",
+        //group = RuleGroup.DEFAULT
+        error = RuleError.PERSON_ERR_001
 )
 
 public class PersonRule0001 
@@ -21,8 +22,8 @@ public class PersonRule0001
 {
 
     @Override
-    public void apply(Person t) throws Exception {
-        this.logging("PersonRule0001 not supported yet. Record =  " + t.toString());
+    protected void execute(Person t) throws RuleException {
+        //this.logging("PersonRule0001 not supported yet. Record =  " + t.toString());
         throw new RuleException("Rule is not supported yet");
     }
     

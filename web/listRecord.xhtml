@@ -9,6 +9,18 @@
         <title>Record List</title>
     </h:head>
     <h:body>
+        <h:outputLabel value="#{statusBarController.get()}" />
+        <h:panelGrid columns="2">
+            <h:outputLabel value="timestamp : "/>
+            <h:outputLabel value="#{statusBarController.timestamp}" />
+            <h:outputLabel value="userName : "/>
+            <h:outputLabel value="#{statusBarController.userName}" />
+            <h:outputLabel value="systemStatus : "/>
+            <h:outputLabel value="#{statusBarController.systemStatus}" />
+            <h:outputLabel value="sessionStatus : "/>
+            <h:outputLabel value="#{statusBarController.sessionStatus}" />
+        </h:panelGrid>
+        <hr/>
         
         <h1>Record List</h1>
         <hr/>

@@ -3,7 +3,10 @@ package com.anrad.record;
 import com.anrad.dbo.AbstractStoreService;
 import com.anrad.log.LogRecord;
 import com.anrad.validator.RuleGroup;
+import com.anrad.validator.RuleResult;
 import com.anrad.validator.Validator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -41,9 +44,17 @@ public class RecordStore extends AbstractStoreService<Record, String> {
     
     @Override
     public void put(Record r) {
-        String result = validator.validate(r, RuleGroup.DEFAULT).stream().collect(Collectors.joining("\n"));
+        //String result = validator.validate(r, RuleGroup.DEFAULT).stream().collect(Collectors.joining("\n"));
+        List<RuleResult> resultList= validator.validate(r, RuleGroup.DEFAULT);
+        List<String> resultString = new ArrayList<>();
+        
+        resultList.forEach((ruleResult) -> {
+            resultString.add(ruleResult.toString());
+        });
+        
+        String result = resultString.stream().collect(Collectors.joining("\n"));
+        
         logging(result);
-        //vh.validate();
         super.put(r);
     }
     

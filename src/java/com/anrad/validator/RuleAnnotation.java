@@ -15,6 +15,7 @@ import javax.inject.Qualifier;
 @Retention(RUNTIME)
 @Target({ElementType.TYPE})
 public @interface RuleAnnotation {
-    String errMsg() default "no message";
-    RuleGroup group() default RuleGroup.DEFAULT;
+    //String errMsg() default "no message";
+    //RuleGroup group() default RuleGroup.DEFAULT;
+    RuleError error();
 }

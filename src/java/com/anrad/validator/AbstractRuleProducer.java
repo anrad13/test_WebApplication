@@ -25,9 +25,15 @@ public abstract class AbstractRuleProducer<T> {
      protected Map<RuleGroup,Set<Rule<T>>> produce() {
         logging("Init");
         Map<RuleGroup,Set<Rule<T>>> rm = new HashMap<>();
+        
+        if (rl == null) {
+            logging("No any rule. Instance<Rule<T>> is null" );
+            return rm;
+        }
+        
         rl.forEach((Rule<T> r) -> {
             logging("Found rule: " + r.toString());
-            RuleGroup g = r.getGroup();
+            RuleGroup g = r.getError().getErrGroup();
             
             if (g != null) { 
                 if (! rm.containsKey(g)) {
