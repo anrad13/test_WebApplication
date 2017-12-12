@@ -20,6 +20,12 @@ public class RecordRuleProducer
     public Map<RuleGroup,Set<Rule<Record>>> produce() {
         return super.produce();
     }
+    
+    @Override
+    @Produces @Default
+    public Map<RuleError,Rule<Record>> produce2() {
+        return super.produce2();
+    }
 
 }
 

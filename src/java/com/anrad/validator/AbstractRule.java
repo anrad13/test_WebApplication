@@ -49,7 +49,7 @@ public abstract class AbstractRule<T> implements Rule<T> {
     public String toString() {
         return 
                 "Rule class = "+ this.getClass().getSimpleName()
-                + "; error" + error
+                + "; error" + (error == null ? "No error annotation" : error.toString())
                 ;
     }
     

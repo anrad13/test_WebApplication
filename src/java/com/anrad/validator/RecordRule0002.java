@@ -15,9 +15,7 @@ import javax.enterprise.context.RequestScoped;
 	
 @Dependent
 
-@RuleAnnotation (
-        error = RuleError.RECORD_ERR_002
-)
+@RuleAnnotation (error = RuleError.RECORD_ERR_002)
 
 public class RecordRule0002 
         extends AbstractRule<Record>

@@ -26,16 +26,16 @@ public abstract class AbstractRuleProducer<T> {
         logging("Init");
         Map<RuleGroup,Set<Rule<T>>> rm = new HashMap<>();
         
-        if (rl == null) {
+        if (rl.isUnsatisfied()) {
             logging("No any rule. Instance<Rule<T>> is null" );
             return rm;
         }
         
         rl.forEach((Rule<T> r) -> {
             logging("Found rule: " + r.toString());
-            RuleGroup g = r.getError().getErrGroup();
-            
-            if (g != null) { 
+            RuleError err = r.getError();
+            if (err != null) { 
+                RuleGroup g = r.getError().getErrGroup();
                 if (! rm.containsKey(g)) {
                     rm.put(g, new HashSet<>());
                 }
@@ -43,13 +43,35 @@ public abstract class AbstractRuleProducer<T> {
                 logging("rule put to group = " + g + ": " + r.toString());
             }
             else {
-                logging("rule does not have group " + r.toString());
+                logging("rule does not have error " + r.toString());
             }
          });
         return rm;
     }
     
-    
+    protected Map<RuleError,Rule<T>> produce2() {
+        logging("Init produce2");
+        Map<RuleError,Rule<T>> rm = new HashMap<>();
+        
+        if (rl.isUnsatisfied()) {
+            logging("No any rule. Instance<Rule<T>> is null" );
+            return rm;
+        }
+        
+        rl.forEach((Rule<T> r) -> {
+            logging("Found rule: " + r.toString());
+            RuleError err = r.getError();
+            if (err != null) { 
+                rm.put(err, r);
+                logging("rule put to list: " + r.toString());
+            }
+            else {
+                logging("rule does not have error " + r.toString());
+            }
+         });
+        return rm;
+    }
+     
     @Inject 
     Event<LogRecord> logger;
     protected void logging(String msg) {

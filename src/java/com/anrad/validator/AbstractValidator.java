@@ -28,33 +28,15 @@ public abstract class AbstractValidator<T>
     
     //private final Map<RuleGroup,Set<Rule<T>>> rm = new HashMap<>();
     // Ingect by producer
+    //@Inject @Default
+    //private Map<RuleGroup,Set<Rule<T>>> rm;
+    
     @Inject @Default
-    private Map<RuleGroup,Set<Rule<T>>> rm;
+    private Map<RuleError,Rule<T>> rules;
     
-    //@PostConstruct
-    /*
-    private void init() {
-        logging("Init");
-        rl.forEach((Rule<T> r) -> {
-            logging("Found rule: " + r.toString());
-            RuleGroup g = r.getGroup();
-            
-            if (g != null) { 
-                if (! rm.containsKey(g)) {
-                    rm.put(g, new HashSet<>());
-                }
-                rm.get(g).add(r);
-                logging("rule put to group = " + g + ": " + r.toString());
-            }
-            else {
-                logging("rule does not have group " + r.toString());
-            }
-         });
-    }
-    */
     
-    @Override
-    public List<RuleResult> validate(T t, RuleGroup g) {
+    /*@Override
+    public List<RuleResult> validate2(T t, RuleGroup g) {
         List<RuleResult> m = new ArrayList<>();
         logging("Try to validate object = " + t.getClass().getName());
         if (rm.containsKey(g)) {
@@ -72,6 +54,20 @@ public abstract class AbstractValidator<T>
             logging("No rule was founded for group = " + g);
         }
         
+        return m;
+    }*/
+    
+    @Override
+    public List<RuleResult> validate(T t, RuleGroup g) {
+        List<RuleResult> m = new ArrayList<>();
+        logging("Try to validate object = " + t.getClass().getName() + ", group = " + g);
+        for (RuleError err: rules.keySet()) {
+            if (err.getErrGroup().equals(g)) {
+                logging("Try to apply rule = " + rules.get(err).toString());
+                RuleResult res = rules.get(err).apply(t);
+                m.add(res);
+            }
+        }
         return m;
     }
     
