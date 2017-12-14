@@ -41,8 +41,12 @@ public class RecordController {
     }
     
     public void doFindById() {
-        Record r = recordStore.get(record.getId());
-        record = new RecordDTO(r);
+        if (record != null) {
+            Record r = recordStore.get(record.getId());
+            if (r != null) {
+                record = new RecordDTO(r);
+            }
+        }
     }
     
     @Inject

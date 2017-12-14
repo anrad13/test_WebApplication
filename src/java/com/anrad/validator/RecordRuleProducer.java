@@ -15,6 +15,7 @@ import javax.enterprise.inject.Produces;
 public class RecordRuleProducer
        extends AbstractRuleProducer<Record>
 {
+    
     @Override
     @Produces @Default
     public Map<RuleGroup,Set<Rule<Record>>> produce() {
