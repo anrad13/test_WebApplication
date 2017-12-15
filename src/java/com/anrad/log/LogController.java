@@ -7,12 +7,13 @@ package com.anrad.log;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named(value = "logController")
-@RequestScoped
+@ApplicationScoped
 
 public class LogController {
     @Inject

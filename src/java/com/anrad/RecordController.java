@@ -73,6 +73,7 @@ public class RecordController {
     public String doDelete(String id) {
         recordStore.del(id);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Record was deleted. id = " + id));
+        logger.fire(new LogRecord(this.getClass().getSimpleName(),"Record was deleted. id = " + id));
         return "listRecord.xhtml";
     }
 

@@ -29,7 +29,7 @@ public abstract class AbstractStoreService<T extends Storeable,ID> implements St
     @Override
     synchronized public void put(List<T> lt) {
         lt.stream().forEachOrdered(
-                (T t)->{this.put(t);}
+                (T t)->{this.storageList.add(t);}
                 );
     }
 
@@ -53,14 +53,12 @@ public abstract class AbstractStoreService<T extends Storeable,ID> implements St
     
     @Override
     synchronized public void del(ID id) {
-        List<T> newStorage = new ArrayList<>();
-        this.storageList.stream()
-                .filter((t) -> (! t.getId().equals(id)))
-                .forEachOrdered((t) -> {
-                    newStorage.add(t);
-                    }
-                );
-        this.del();
-        this.put(newStorage);
+        for (int i = 0; i < storageList.size(); i++) {
+                if (id.equals(storageList.get(i).getId())) {
+                    storageList.remove(i);
+                    return;
+                }
+            }
+        
     }
 }
