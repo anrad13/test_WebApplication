@@ -13,13 +13,23 @@ public abstract class AbstractStoreService<T extends Storeable,ID> implements St
     
     @Override
     synchronized public void put(T t) {
+        if (t.getId() != null)  {
+            //update existing object if it present 
+            for (int i = 0; i < storageList.size(); i++) {
+                if (t.getId().equals(storageList.get(i).getId())) {
+                    storageList.set(i, t);
+                    return;
+                }
+            }
+        } 
+        // add new object
         storageList.add(t);
     }
     
     @Override
     synchronized public void put(List<T> lt) {
         lt.stream().forEachOrdered(
-                (T t)->{this.storageList.add(t);}
+                (T t)->{this.put(t);}
                 );
     }
 
