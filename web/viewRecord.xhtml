@@ -29,5 +29,9 @@
         <h:form>
             <h:commandButton value="Delete" action="#{recordController.doDelete(recordController.record.id)}"/>
         </h:form>
+        <hr/>
+        <h:form>
+            <h:commandButton value="Back" action="#{recordController.toListPage()}"/>
+        </h:form>
     </body>
 </html>

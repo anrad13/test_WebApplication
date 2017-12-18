@@ -1,6 +1,7 @@
 package com.anrad.record;
 
 import com.anrad.dbo.AbstractStoreService;
+import com.anrad.dbo.StoreService;
 import com.anrad.log.LogRecord;
 import com.anrad.validator.RuleGroup;
 import com.anrad.validator.RuleResult;
@@ -13,11 +14,17 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 @Startup
 @Singleton
+@Named("recordStore")
 
-public class RecordStore extends AbstractStoreService<Record, String> {
+public class RecordStore 
+        extends AbstractStoreService<Record, String> 
+        implements StoreService<Record, String>
+
+{
     
     //@Inject
     //@Default
