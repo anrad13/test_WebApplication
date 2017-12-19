@@ -4,15 +4,15 @@ import com.anrad.dbo.AbstractStoreService;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 
-@Startup
-@Singleton
+//@Startup
+//@Singleton
+@ApplicationScoped
+
 
 public class LogStore extends AbstractStoreService<LogRecord, String> {
-    public LogStore() {
-        super();
-    }
     
     @PostConstruct
     void init() {

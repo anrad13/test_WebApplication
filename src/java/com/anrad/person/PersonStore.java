@@ -5,18 +5,10 @@ import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
 
-@Startup
-@Singleton
+//@Startup
+//@Singleton
+@ApplicationScoped
 
-public class PersonStore extends AbstractStoreService<Person,UUID> {
-    
-    @PostConstruct
-    void init() {
-        this.put(new Person("Name 1", "Description 1"));
-        this.put(new Person("Name 2", "Description 2"));
-        this.put(new Person("Name 3", "Description 3"));
-        this.put(new Person("Name 4", "Description 4"));
-    }
-        
-}
+public class PersonStore extends AbstractStoreService<Person,UUID> {}

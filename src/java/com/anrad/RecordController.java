@@ -1,11 +1,13 @@
 package com.anrad;
 
 import com.anrad.dbo.StoreService;
+import com.anrad.function.api.UseCase;
 import com.anrad.function.api.UserFunction;
 import com.anrad.log.LogRecord;
 import com.anrad.record.RecordDTO;
 import com.anrad.record.Record;
 import com.anrad.record.RecordStore;
+import com.anrad.record.RecordStoreGetFunction;
 import com.anrad.record.RecordStoreSearchFunction;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +29,18 @@ public class RecordController {
     private StoreService<Record, String> recordStore;
     
     @Inject
-    @Named("RecordStoreSearchFunction")
+    //@Named("RecordStoreSearchFunction")
+    @UseCase("RecordStoreSearchFunction")
     //private RecordStoreSearchFunction searchService;
-    private UserFunction<String,List<Record>> searchFunction;
+    //private UserFunction<String,List<Record>> searchFunction;
+    private RecordStoreSearchFunction searchFunction;
     
     @Inject
-    @Named("RecordStoreGetFunction")
+    //@Named("RecordStoreGetFunction")
+    @UseCase("RecordStoreGetFunction")
     //private RecordStoreSearchFunction searchService;
-    private UserFunction<String,Record> getFunction;
+    //private UserFunction<String,Record> getFunction;
+    private RecordStoreGetFunction getFunction;
     
     
     private RecordDTO record = new RecordDTO();

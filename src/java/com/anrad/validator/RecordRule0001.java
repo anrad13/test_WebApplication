@@ -16,8 +16,6 @@ import javax.enterprise.context.RequestScoped;
 @Dependent
 
 @RuleAnnotation (
-        //errMsg = "RecordRule0001 have not realized yet",
-        //group = RuleGroup.DEFAULT
         error = RuleError.RECORD_ERR_001
 )
 

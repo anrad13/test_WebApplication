@@ -12,27 +12,21 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@Startup
-@Singleton
-@Named("recordStore")
+//@Startup
+//@Singleton
+//@Named("recordStore")
+@ApplicationScoped
 
 public class RecordStore 
         extends AbstractStoreService<Record, String> 
         implements StoreService<Record, String>
 
 {
-    
-    //@Inject
-    //@Default
-    //@DTOAnnotation(dto = Record.class)
-    //Validator validator;
-    
-    //@Inject
-    //Validator3Handler vh;
     
     @Inject 
     Validator<Record> validator;
@@ -41,12 +35,12 @@ public class RecordStore
         super();
     }
     
-    @PostConstruct
+    //@PostConstruct
     void init() {
-        this.put(new Record("Name 1", "Description 1"));
-        this.put(new Record("Name 2", "Description 2"));
-        this.put(new Record("Name 3", "Description 3"));
-        this.put(new Record("Name 4", "Description 4"));
+        //this.put(new Record("Name 1", "Description 1"));
+        //this.put(new Record("Name 2", "Description 2"));
+        //this.put(new Record("Name 3", "Description 3"));
+        //this.put(new Record("Name 4", "Description 4"));
     }
     
     @Override
