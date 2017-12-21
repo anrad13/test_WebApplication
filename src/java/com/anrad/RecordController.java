@@ -6,9 +6,10 @@ import com.anrad.function.api.UserFunction;
 import com.anrad.log.LogRecord;
 import com.anrad.record.RecordDTO;
 import com.anrad.record.Record;
-import com.anrad.record.RecordStore;
 import com.anrad.record.RecordStoreGetFunction;
-import com.anrad.record.RecordStoreSearchFunction;
+import com.anrad.record.constraint.ConstraintCreateGroup;
+import com.anrad.record.constraint.ConstraintDeleteGroup;
+import com.anrad.record.constraint.RecordConstraintValidator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -32,8 +33,8 @@ public class RecordController {
     //@Named("RecordStoreSearchFunction")
     @UseCase("RecordStoreSearchFunction")
     //private RecordStoreSearchFunction searchService;
-    //private UserFunction<String,List<Record>> searchFunction;
-    private RecordStoreSearchFunction searchFunction;
+    private UserFunction<String,List<Record>> searchFunction;
+    //private RecordStoreSearchFunction searchFunction;
     
     @Inject
     //@Named("RecordStoreGetFunction")
@@ -42,6 +43,8 @@ public class RecordController {
     //private UserFunction<String,Record> getFunction;
     private RecordStoreGetFunction getFunction;
     
+    @Inject
+    RecordConstraintValidator cValidator;
     
     private RecordDTO record = new RecordDTO();
     
@@ -85,8 +88,15 @@ public class RecordController {
         //#TODO validate
                
         if (record.getName() != null && record.getName().length()>0) {
+            Record r = new Record(record.getName(),record.getDescription());
             
-            recordStore.put(new Record(record.getName(),record.getDescription()));
+            List<String> errors = cValidator.validate(r, ConstraintCreateGroup.class);
+            errors.forEach( (String s)-> {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(s));
+                logger.fire(new LogRecord(this.getClass().getSimpleName(),s));});
+            
+            
+            recordStore.put(r);
             logger.fire(new LogRecord(this.getClass().getSimpleName(),"Record was added to record store"));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Record was created"));
             record = new RecordDTO();
@@ -99,7 +109,14 @@ public class RecordController {
     }
     
     public String doDelete(String id) {
+        
+        List<String> errors = cValidator.validate(new Record(this.record), ConstraintDeleteGroup.class);
+            errors.forEach( (String s)-> {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(s));
+                logger.fire(new LogRecord(this.getClass().getSimpleName(),s));});
+            
         recordStore.del(id);
+        
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Record was deleted. id = " + id));
         logger.fire(new LogRecord(this.getClass().getSimpleName(),"Record was deleted. id = " + id));
         return "listRecord.xhtml";

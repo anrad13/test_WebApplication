@@ -1,9 +1,16 @@
 package com.anrad.record;
 
 import com.anrad.dbo.Storeable;
+import com.anrad.record.constraint.ConstraintCreateGroup;
+import com.anrad.record.constraint.ConstraintDeleteGroup;
+import com.anrad.record.constraint.RecordConstraint_0001;
+import com.anrad.record.constraint.RecordConstraint_0002;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.groups.Default;
 
+@RecordConstraint_0001(groups = {Default.class,ConstraintCreateGroup.class})
+@RecordConstraint_0002(groups = {ConstraintDeleteGroup.class})
 public class Record implements Storeable<String> {
     private String id;
     private String name;
@@ -17,6 +24,11 @@ public class Record implements Storeable<String> {
         this();
         name = n;
         description = d;
+    }
+    public Record(RecordDTO dto) {
+        id = dto.getId();
+        name = dto.getName();
+        description = dto.getDescription();
     }
     
     @Override
